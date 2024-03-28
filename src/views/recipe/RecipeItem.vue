@@ -12,12 +12,14 @@
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>Ingrédient</th>
                     <th>Quantité</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="ingredient in recipe.ingredients" :key="ingredient.ingredient._id">
+                    <td><img :src="ingredient.ingredient.imageUrl || defaultImage" class="size-24 object-cover mr-3"/></td>
                     <td>{{ ingredient.ingredient.name }}</td>
                     <td>{{ ingredient.quantity }} {{ ingredient.unit }}</td>
                 </tr>
@@ -38,6 +40,7 @@
             RecipeCard,
         },
         setup() {
+            const defaultImage = import.meta.env.VITE_DEFAULT_IMG_INGREDIENT;
             const recipe = ref<Recipe | null>(null);
             const loading = ref(true);
             const route = useRoute();
@@ -70,7 +73,7 @@
             };
 
             onMounted(fetchRecipes);
-            return { recipe, loading, deleteRecipe };
+            return { recipe, loading, deleteRecipe, defaultImage };
         },
     });
 </script>

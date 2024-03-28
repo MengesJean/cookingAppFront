@@ -88,7 +88,6 @@
         try {
           const response = await axios.get('http://localhost:3000/ingredients');
           availableIngredients.value = response.data;
-          console.log(availableIngredients.value)
         } catch (error) {
           console.error(error);
         }
@@ -106,8 +105,14 @@
                 }
                 await axios.patch(`http://localhost:3000/recipes/${recipe._id}`, preparedRecipe);
             } else {
-              console.log(recipe)
-            await axios.post('http://localhost:3000/recipes', recipe);
+              const preparedRecipe = {
+                  ...recipe, // Copiez les autres propriétés de la recette normalement
+                  ingredients: recipe.ingredients.map(ingredientInRecipe => ({
+                    ...ingredientInRecipe, // Copiez les autres propriétés comme quantity et unit
+                    ingredient: ingredientInRecipe.ingredient._id // Remplacez l'objet Ingredient complet par juste l'ID
+                  }))
+                }
+            await axios.post('http://localhost:3000/recipes', preparedRecipe);
           }
           router.push('/');
         } catch (error) {

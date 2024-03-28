@@ -10,6 +10,7 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
+                        <th scope="col"></th>
                         <th class="px-6 py-3" scope="col">Nom</th>
                         <th class="px-6 py-3 text-right" scope="col">Actions</th>
                     </tr>
@@ -43,7 +44,6 @@
                     console.error(error);
                 } finally {
                     loading.value = false;
-                    console.log(ingredients.value)
                 }
             };
 
