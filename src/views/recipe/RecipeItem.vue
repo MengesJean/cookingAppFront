@@ -6,7 +6,8 @@
         </div>
         <h1>{{ recipe.title }}</h1>
         <p>{{ recipe.description }}</p>
-        <p>Temps : {{ recipe.time }} min</p>
+        <p>Temps de préparation : {{ recipe.time }} min</p>
+        <p>Temps de cuisson : {{ recipe.time_cooking }} min</p>
         <p>Difficulté : {{ recipe.difficulty }}/10</p>
         <h2>Ingrédients</h2>
         <table>
@@ -50,7 +51,7 @@
                 const id = route.params.id;
 
                 try {
-                    const response = await axios.get(`http://localhost:3000/recipes/${id}`);
+                    const response = await axios.get(`${import.meta.env.VITE_DEFAULT_API_URL}/recipes/${id}`);
                     recipe.value = response.data;
                 } catch (error) {
                     console.error(error);
@@ -64,7 +65,7 @@
                 const confirmation = window.confirm('Voulez-vous vraiment supprimer cette recette ?');
                 if(confirmation) {
                     try {
-                        await axios.delete(`http://localhost:3000/recipes/${recipe.value._id}`);
+                        await axios.delete(`${import.meta.env.VITE_DEFAULT_API_URL}/recipes/${recipe.value._id}`);
                         router.push('/');
                     } catch (error) {
                         console.error(error);
@@ -80,4 +81,4 @@
 
 <style scoped>
     /* Vos styles ici */
-</style>../../types/Recipe../../components/recipe/RecipeCard.vue
+</style>

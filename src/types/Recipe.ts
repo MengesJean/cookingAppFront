@@ -5,18 +5,13 @@ export interface Recipe {
     title: string;
     description: string;
     time: number;
+    time_cooking: number;
     difficulty: number;
     ingredients: IngredientRecipe[];
 }
 
 export interface IngredientRecipe {
     ingredient: Ingredient;
-    quantity: number;
-    unit: string;
-}
-
-export interface IngredientInRecipeSend {
-    ingredient: string; // L'ID de l'ingrédient
     quantity: number;
     unit: string;
 }

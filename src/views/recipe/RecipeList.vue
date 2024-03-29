@@ -28,7 +28,7 @@
         
         const fetchRecipes = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/recipes');
+            const response = await axios.get(import.meta.env.VITE_DEFAULT_API_URL + '/recipes');
             recipes.value = response.data;
         } catch (error) {
             console.error(error);

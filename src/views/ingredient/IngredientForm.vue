@@ -8,6 +8,7 @@
             </div>
             <div class="form-group">
                 <label for="image">Image</label>
+                <img v-if="ingredient.imageUrl" :src="ingredient.imageUrl" alt="Image de l'ingrédient" style="max-width: 200px;"/>
                 <input type="file" id="image" ref="image" required>
             </div>
             <button type="submit" class="btn">Enregistrer</button>
@@ -33,7 +34,7 @@
 
             const fetchIngredient = async (id: string) => {
                 try {
-                    const response = await axios.get<Ingredient>(`http://localhost:3000/ingredients/${id}`);
+                    const response = await axios.get<Ingredient>(`${import.meta.env.VITE_DEFAULT_API_URL}/ingredients/${id}`);
                     Object.assign(ingredient, response.data);
                 } catch (error) {
                     console.error(error);
@@ -50,13 +51,13 @@
                     }
 
                     if (ingredient._id) {
-                        await axios.patch(`http://localhost:3000/ingredients/${ingredient._id}`, formData, {
+                        await axios.patch(`${import.meta.env.VITE_DEFAULT_API_URL}/ingredients/${ingredient._id}`, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data',
                             },
                         });
                     } else {
-                        await axios.post('http://localhost:3000/ingredients', formData, {
+                        await axios.post(import.meta.env.VITE_DEFAULT_API_URL + '/ingredients', formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data',
                             },

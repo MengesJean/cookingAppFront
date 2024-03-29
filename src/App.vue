@@ -17,7 +17,7 @@
     
     <footer>
       <div class="bg-gray-800 p-4 text-white text-center">
-        &copy; 2021 Mon application de recettes
+        &copy; 2024 Mon application de recettes
       </div>
 
       

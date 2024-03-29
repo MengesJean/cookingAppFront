@@ -11,8 +11,12 @@
             <textarea id="description" v-model="recipe.description" required></textarea>
         </div>
         <div class="form-group">
-            <label for="time">Temps (en minutes)</label>
+            <label for="time">Temps de préparation (en minutes)</label>
             <input id="time" v-model="recipe.time" type="number" required>
+        </div>
+        <div class="form-group">
+            <label for="time_cooking">Temps de cuisson (en minutes)</label>
+            <input id="time_cooking" v-model="recipe.time_cooking" type="number" required>
         </div>
         <div class="form-group">
             <label for="difficulty">Difficulté</label>
@@ -69,6 +73,7 @@
         title: '',
         description: '',
         time: 0,
+        time_cooking: 0,
         difficulty: 0,
         ingredients: [],
       });
@@ -77,7 +82,7 @@
   
       const fetchRecipe = async (id: string) => {
         try {
-          const response = await axios.get(`http://localhost:3000/recipes/${id}`);
+          const response = await axios.get(`${import.meta.env.VITE_DEFAULT_API_URL}/recipes/${id}`);
           Object.assign(recipe, response.data);
         } catch (error) {
           console.error(error);
@@ -86,7 +91,7 @@
 
       const fetchIngredients = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/ingredients');
+          const response = await axios.get(import.meta.env.VITE_DEFAULT_API_URL + '/ingredients');
           availableIngredients.value = response.data;
         } catch (error) {
           console.error(error);
@@ -103,7 +108,7 @@
                     ingredient: ingredientInRecipe.ingredient._id // Remplacez l'objet Ingredient complet par juste l'ID
                   }))
                 }
-                await axios.patch(`http://localhost:3000/recipes/${recipe._id}`, preparedRecipe);
+                await axios.patch(`${import.meta.env.VITE_DEFAULT_API_URL}/recipes/${recipe._id}`, preparedRecipe);
             } else {
               const preparedRecipe = {
                   ...recipe, // Copiez les autres propriétés de la recette normalement
@@ -112,7 +117,7 @@
                     ingredient: ingredientInRecipe.ingredient._id // Remplacez l'objet Ingredient complet par juste l'ID
                   }))
                 }
-            await axios.post('http://localhost:3000/recipes', preparedRecipe);
+            await axios.post(import.meta.env.VITE_DEFAULT_API_URL + '/recipes', preparedRecipe);
           }
           router.push('/');
         } catch (error) {

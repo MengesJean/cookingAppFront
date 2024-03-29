@@ -38,7 +38,7 @@
             
             const fetchIngredients = async () => {
                 try {
-                    const response = await axios.get('http://localhost:3000/ingredients');
+                    const response = await axios.get(import.meta.env.VITE_DEFAULT_API_URL + '/ingredients');
                     ingredients.value = response.data;
                 } catch (error) {
                     console.error(error);
@@ -55,7 +55,7 @@
                 try {
                     let confirmation = window.confirm('Voulez-vous vraiment supprimer cet ingrédient ?');
                     if(confirmation === false) return;
-                    await axios.delete(`http://localhost:3000/ingredients/${ingredient._id}`);
+                    await axios.delete(`${import.meta.env.VITE_DEFAULT_API_URL}/ingredients/${ingredient._id}`);
                     this.ingredients = this.ingredients.filter(i => i._id !== ingredient._id);
                 } catch (error) {
                     console.error(error);

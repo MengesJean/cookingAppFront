@@ -4,8 +4,9 @@
       <router-link :to="{name: 'RecipeItem',  params: {id: recipe._id}}" class="block p-4">
         <h2 class="font-semibold text-lg">{{ recipe.title }}</h2>
         <p class="text-gray-600">{{ recipe.description }}</p>
-        <p class="text-gray-600">{{ recipe.time }} min</p>
-        <p class="text-gray-600">{{ recipe.difficulty }} min</p>
+        <p class="text-gray-900">Préparation {{ recipe.time }} min</p>
+        <p class="text-gray-900">Cuisson {{ recipe.time_cooking }} min</p>
+        <p class="text-gray-900">{{ recipe.difficulty }} min</p>
       </router-link>
     </div>
   </template>
