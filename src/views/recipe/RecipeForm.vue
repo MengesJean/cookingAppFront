@@ -49,7 +49,21 @@
 
           </div>
           <button type="button" class="btn mb-3" @click="addIngredient">Ajouter un ingrédient</button>
-
+        </div>
+        <div class="form-group mt-8">
+          <h2>Étapes</h2>
+          <div v-for="(step, index) in recipe.steps" :key="index" class="steps">
+            <div>
+              <label for="step_title">Titre</label>
+              <input type="text" v-model="step.title" required>
+            </div>
+            <div>
+              <label for="step_text">Contenu</label>
+              <input type="text" v-model="step.text" required>
+            </div>
+            <button class="btn btn-danger" @click="removeStep(index)">Supprimer l'étape</button>
+          </div>
+          <button class="btn mb-3" @click="addStep">Ajouter une étape</button>
         </div>
         <button type="submit" class="btn">{{ recipe._id ? 'Modifier' : 'Créer' }}</button>
       </form>
@@ -76,6 +90,7 @@
         time_cooking: 0,
         difficulty: 0,
         ingredients: [],
+        steps: [],
       });
 
       const availableIngredients = ref<Ingredient[]>([]);
@@ -102,24 +117,24 @@
         try {
             if (recipe._id) {
               const preparedRecipe = {
-                  ...recipe, // Copiez les autres propriétés de la recette normalement
+                  ...recipe,
                   ingredients: recipe.ingredients.map(ingredientInRecipe => ({
-                    ...ingredientInRecipe, // Copiez les autres propriétés comme quantity et unit
-                    ingredient: ingredientInRecipe.ingredient._id // Remplacez l'objet Ingredient complet par juste l'ID
+                    ...ingredientInRecipe,
+                    ingredient: ingredientInRecipe.ingredient._id
                   }))
                 }
                 await axios.patch(`${import.meta.env.VITE_DEFAULT_API_URL}/recipes/${recipe._id}`, preparedRecipe);
             } else {
               const preparedRecipe = {
-                  ...recipe, // Copiez les autres propriétés de la recette normalement
+                  ...recipe,
                   ingredients: recipe.ingredients.map(ingredientInRecipe => ({
-                    ...ingredientInRecipe, // Copiez les autres propriétés comme quantity et unit
-                    ingredient: ingredientInRecipe.ingredient._id // Remplacez l'objet Ingredient complet par juste l'ID
+                    ...ingredientInRecipe,
+                    ingredient: ingredientInRecipe.ingredient._id
                   }))
                 }
             await axios.post(import.meta.env.VITE_DEFAULT_API_URL + '/recipes', preparedRecipe);
           }
-          router.push('/');
+          await router.push('/');
         } catch (error) {
           console.error(error);
         }
@@ -148,6 +163,15 @@
       removeIngredient(index: number) {
         this.recipe.ingredients.splice(index, 1);
       },
+      addStep() {
+        this.recipe.steps.push({
+          title: '',
+          text: ''
+        })
+      },
+      removeStep(index: number) {
+        this.recipe.steps.splice(index, 1);
+      }
     },
   });
   </script>

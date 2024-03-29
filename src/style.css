@@ -12,6 +12,11 @@ h2 {
   @apply mb-2;
 }
 
+h3 {
+    @apply text-2xl font-bold;
+    @apply mb-2 mt-3;
+}
+
 label {
   @apply block font-bold;
   @apply mb-1;
